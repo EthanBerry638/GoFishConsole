@@ -19,3 +19,8 @@ Menu manager (all menu functions and options)
 Enums:
 Game phase for dealing, playerturn, etc.
 */
+
+using GoFish.Game;
+using GoFish.GameCards;
+using GoFish.Menu;
+using GoFish.Players;
