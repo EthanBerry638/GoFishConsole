@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using GoFish.Game;
 using GoFish.HelperMethods;
 
 namespace GoFish.Menu
@@ -54,7 +55,8 @@ namespace GoFish.Menu
                     case MenuChoices.Play:
                         Console.WriteLine("Starting game...");
                         Utils.Pause(200);
-                        // Play();
+                        GameManager gameManager = new GameManager();
+                        gameManager.StartGame();
                         break;
 
                     case MenuChoices.Tutorial:

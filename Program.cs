@@ -25,8 +25,7 @@ using GoFish.GameCards;
 using GoFish.Menu;
 using GoFish.Players;
 
-DeckManager deckManager = new DeckManager();
-deckManager.GenerateDefaultDeck();
+GameManager gameManager = new GameManager();
 
 MenuManager menumanager = new MenuManager();
 menumanager.MainLoop();
