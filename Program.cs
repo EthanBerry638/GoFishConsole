@@ -24,3 +24,6 @@ using GoFish.Game;
 using GoFish.GameCards;
 using GoFish.Menu;
 using GoFish.Players;
+
+MenuManager menumanger = new MenuManager();
+menumanger.MainLoop();
