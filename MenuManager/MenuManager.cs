@@ -7,10 +7,21 @@ namespace GoFish.Menu
         public void MainLoop()
         {
             Console.Clear();
-            Console.WriteLine("\nMain Menu\n");
+            Console.WriteLine("Main Menu\n");
             Utils.Pause(500);
-            Console.WriteLine("Test");
-            // DisplayMenuOptions();
+            DisplayMenuOptions();
+        }
+
+        public void DisplayMenuOptions()
+        {
+            Console.WriteLine("1. Play");
+            Utils.Pause(200);
+            Console.WriteLine("2. Tutorial");
+            Utils.Pause(200);
+            Console.WriteLine("3. Exit");
+            Utils.Pause(200);
+            Console.WriteLine("\nPlease enter an option from the list: ");
+            Utils.Pause(200);
         }
     }
 }
