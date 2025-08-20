@@ -1,0 +1,20 @@
+# Build and debug
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+
+# VS Code
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# User-specific config
+*.user
+*.suo
