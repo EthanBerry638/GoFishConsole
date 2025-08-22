@@ -16,7 +16,7 @@ namespace GoFish.Players
         {
             for (int i = 0; i < 7; i++)
             {
-                Card card = _deckManager.DrawRandomCard();
+                Card? card = _deckManager.DrawRandomCard();
                 if (card != null)
                 {
                     PlayerHand.Add(card);

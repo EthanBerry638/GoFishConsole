@@ -15,6 +15,7 @@ namespace GoFish.Game
             _ai.CreateStartingHand();
 
             _player.GetPlayerName();
+            _ai.GetAIName();
         }
     }
 }

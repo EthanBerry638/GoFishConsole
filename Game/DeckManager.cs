@@ -32,7 +32,7 @@ namespace GoFish.Game
             return deckSize = deck.Count();
         }
 
-        public Card DrawRandomCard()
+        public Card? DrawRandomCard()
         {
             if (deck.Count == 0) return null;
 
