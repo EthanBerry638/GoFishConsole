@@ -33,7 +33,6 @@ namespace GoFish.Game
 
         public void GameLoop()
         {
-            string? playerInput = "";
             // Set inital turn from a heads or tails
             HeadsOrTailsInput();
             if (HeadsOrTails())
@@ -111,7 +110,7 @@ namespace GoFish.Game
 
         public void AITurn()
         {
-            
+
         }
     }
 }
