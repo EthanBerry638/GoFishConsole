@@ -5,6 +5,7 @@ namespace GoFish.Game
     public class DeckManager
     {
         private List<Card> deck = new List<Card>();
+        public int deckSize;
 
         public void GenerateDefaultDeck()
         {
@@ -23,6 +24,11 @@ namespace GoFish.Game
             {
                 Console.WriteLine(card);
             }
+        }
+
+        public int GetDeckSize()
+        {
+            return deckSize = deck.Count();
         }
     }
 }
