@@ -10,8 +10,9 @@ namespace GoFish.Menu
         Tutorial,
         Exit
     }
-    public class MenuManager
+    public class MenuManager (GameManager gameManager)
     {
+        private readonly GameManager _gameManager = gameManager;
         public void MainLoop()
         {
             while (true)
@@ -24,7 +25,7 @@ namespace GoFish.Menu
             }
         }
 
-        public void DisplayMenuOptions()
+        private static void DisplayMenuOptions()
         {
             Console.WriteLine("1. Play");
             Utils.Pause(200);
@@ -36,7 +37,7 @@ namespace GoFish.Menu
             Utils.Pause(200);
         }
 
-        public void GetMenuChoice()
+        private void GetMenuChoice()
         {
             while (true)
             {
@@ -55,8 +56,7 @@ namespace GoFish.Menu
                     case MenuChoices.Play:
                         Console.WriteLine("Starting game...");
                         Utils.Pause(200);
-                        GameManager gameManager = new GameManager();
-                        gameManager.StartGame();
+                        _gameManager.StartGame();
                         break;
 
                     case MenuChoices.Tutorial:

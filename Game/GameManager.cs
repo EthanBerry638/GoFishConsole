@@ -2,12 +2,12 @@ using GoFish.GameCards;
 
 namespace GoFish.Game
 {
-    public class GameManager
+    public class GameManager (DeckManager deckManager)
     {
+        private readonly DeckManager _deckManager = deckManager;
         public void StartGame()
         {
-            DeckManager deckManager = new DeckManager();
-            deckManager.GenerateDefaultDeck();
+            _deckManager.GenerateDefaultDeck();
         }
     }
 }
