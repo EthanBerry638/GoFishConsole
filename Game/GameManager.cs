@@ -48,11 +48,11 @@ namespace GoFish.Game
             {
                 if (_player.PlayerTurn)
                 {
-                    PlayerTurn();
+                    _turnManager.PlayerTurn();
                 }
                 else
                 {
-                    AITurn();
+                    _turnManager.AITurn();
                 }
             }
         }
@@ -102,16 +102,6 @@ namespace GoFish.Game
 
             Console.WriteLine("Unfortunately, you lost this coin flip...");
             return false;
-        }
-
-        public void PlayerTurn()
-        {
-
-        }
-
-        public void AITurn()
-        {
-
         }
     }
 }

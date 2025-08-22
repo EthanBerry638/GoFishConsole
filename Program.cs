@@ -33,7 +33,7 @@ public class GameInitializer
         DeckManager deckManager = new DeckManager(sharedRandom);
         AI ai = new AI(deckManager, sharedRandom);
         Player player = new Player(deckManager, sharedRandom);
-        TurnManager turnManager = new TurnManager();
+        TurnManager turnManager = new TurnManager(player, ai);
         GameManager gameManager = new GameManager(deckManager, player, ai, sharedRandom, turnManager);
         return new MenuManager(gameManager);
     }
