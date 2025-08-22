@@ -6,12 +6,13 @@ using GoFish.Players;
 
 namespace GoFish.Game
 {
-    public class GameManager(DeckManager deckManager, Player player, AI ai, Random sharedRandom)
+    public class GameManager(DeckManager deckManager, Player player, AI ai, Random sharedRandom, TurnManager turnManager)
     {
         private readonly Player _player = player;
         private readonly AI _ai = ai;
         private readonly DeckManager _deckManager = deckManager;
         private readonly Random _sharedRandom = sharedRandom;
+        private readonly TurnManager _turnManager = turnManager;
         public void StartGame()
         {
             _deckManager.GenerateDefaultDeck();
