@@ -27,6 +27,8 @@ using GoFish.Players;
 
 DeckManager deckManager = new DeckManager();
 GameManager gameManager = new GameManager(deckManager);
+Random sharedRandom = new Random();
+Player player = new Player();
 
 MenuManager menumanager = new MenuManager(gameManager);
 menumanager.MainLoop();

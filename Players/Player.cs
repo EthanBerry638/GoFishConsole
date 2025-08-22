@@ -3,9 +3,10 @@ using GoFish.GameCards;
 
 namespace GoFish.Players
 {
-    public class Player (DeckManager deckManager)
+    public class Player (DeckManager deckManager, Random sharedRandom)
     {
         private readonly DeckManager _deckManager = deckManager;
+        private readonly Random _sharedRandom = sharedRandom;
         private List<Card> PlayerHand = new List<Card>();
 
         public void CreateStartingHand()
