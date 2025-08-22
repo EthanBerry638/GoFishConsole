@@ -9,7 +9,8 @@ namespace GoFish.Players
     {
         private readonly DeckManager _deckManager = deckManager;
         private readonly Random _sharedRandom = sharedRandom;
-        private List<Card> AIHand = new List<Card>();
+        public List<Card> AIHand = new List<Card>();
+        public bool AITurn = false;
         List<string> AINames = new List<string>
         {
             "Dave", "Bob", "ChatGPT", "John"

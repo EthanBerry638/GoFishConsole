@@ -8,9 +8,11 @@ namespace GoFish.Players
     {
         private readonly DeckManager _deckManager = deckManager;
         private readonly Random _sharedRandom = sharedRandom;
-        private List<Card> PlayerHand = new List<Card>();
+        public List<Card> PlayerHand = new List<Card>();
 
         public string? PlayerName { get; set; }
+
+        public bool PlayerTurn = false;
 
         public void CreateStartingHand()
         {

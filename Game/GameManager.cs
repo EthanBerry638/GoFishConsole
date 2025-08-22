@@ -1,13 +1,17 @@
+using System.Security.AccessControl;
+using System.Security.Cryptography;
 using GoFish.GameCards;
+using GoFish.HelperMethods;
 using GoFish.Players;
 
 namespace GoFish.Game
 {
-    public class GameManager(DeckManager deckManager, Player player, AI ai)
+    public class GameManager(DeckManager deckManager, Player player, AI ai, Random sharedRandom)
     {
         private readonly Player _player = player;
         private readonly AI _ai = ai;
         private readonly DeckManager _deckManager = deckManager;
+        private readonly Random _sharedRandom = sharedRandom;
         public void StartGame()
         {
             _deckManager.GenerateDefaultDeck();
@@ -16,6 +20,98 @@ namespace GoFish.Game
 
             _player.GetPlayerName();
             _ai.GetAIName();
+        }
+
+        public bool IsGameOver()
+        {
+            if (_deckManager.deck.Count == 0 && _player.PlayerHand.Count == 0 && _ai.AIHand.Count == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void GameLoop()
+        {
+            string? playerInput = "";
+            // Set inital turn from a heads or tails
+            HeadsOrTailsInput();
+            if (HeadsOrTails())
+            {
+                _player.PlayerTurn = true;
+            }
+            else
+            {
+                _ai.AITurn = true;
+            }
+            while (!IsGameOver())
+            {
+                if (_player.PlayerTurn)
+                {
+                    PlayerTurn();
+                }
+                else
+                {
+                    AITurn();
+                }
+            }
+        }
+
+        private string HeadsOrTailsInput()
+        {
+            while (true)
+            {
+                string? coinFlipChoice;
+                Console.WriteLine("A coin flip will be used to determine who gets the first turn!");
+                Console.WriteLine("Do you pick heads or tails?");
+                coinFlipChoice = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(coinFlipChoice))
+                {
+                    Console.WriteLine("Please enter something...");
+                    continue;
+                }
+
+                coinFlipChoice = coinFlipChoice.Trim().ToLower();
+
+                if (coinFlipChoice == "heads")
+                {
+                    return coinFlipChoice;
+                }
+                else if (coinFlipChoice == "tails")
+                {
+                    return coinFlipChoice;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter 'heads' or 'tails'.");
+                    Utils.Pause(500);
+                }
+            }
+        }
+
+        private bool HeadsOrTails()
+        {
+            int coinFlip = _sharedRandom.Next(0, 11);
+
+            if (coinFlip <= 5)
+            {
+                Console.WriteLine("You guessed correctly! You go first!");
+                return true;
+            }
+
+            Console.WriteLine("Unfortunately, you lost this coin flip...");
+            return false;
+        }
+
+        public void PlayerTurn()
+        {
+
+        }
+
+        public void AITurn()
+        {
+            
         }
     }
 }
