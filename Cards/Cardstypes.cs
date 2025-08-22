@@ -22,7 +22,6 @@ namespace GoFish.GameCards
         Jack,
         Queen,
         King,
-        Ace
+        Ace = 1
     }
 }
-
