@@ -25,7 +25,17 @@ using GoFish.GameCards;
 using GoFish.Menu;
 using GoFish.Players;
 
-GameManager gameManager = new GameManager();
-
-MenuManager menumanager = new MenuManager();
-menumanager.MainLoop();
+MenuManager menuManager = GameInitializer.InitializeGame();
+menuManager.MainLoop();
+public class GameInitializer
+{
+    public static MenuManager InitializeGame()
+    {
+        Random sharedRandom = new Random();
+        DeckManager deckManager = new DeckManager(sharedRandom);
+        AI ai = new AI(deckManager, sharedRandom);
+        Player player = new Player(deckManager, sharedRandom);
+        GameManager gameManager = new GameManager(deckManager, player, ai);
+        return new MenuManager(gameManager);
+    }
+}
