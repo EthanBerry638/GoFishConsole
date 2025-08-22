@@ -1,5 +1,6 @@
 using GoFish.Game;
 using GoFish.GameCards;
+using GoFish.HelperMethods;
 
 namespace GoFish.Players
 {
@@ -23,9 +24,13 @@ namespace GoFish.Players
 
         public void ViewHand()
         {
+            int count = 0;
+            
             foreach (Card card in PlayerHand)
             {
-                Console.WriteLine(card);
+                count += 1;
+                Console.WriteLine($"{count}. {card}");
+                Utils.Pause(200);
             }
         }
     }
