@@ -3,7 +3,7 @@ using GoFish.GameCards;
 
 namespace GoFish.Players
 {
-    public class Player (DeckManager deckManager, Random sharedRandom)
+    public class Player(DeckManager deckManager, Random sharedRandom)
     {
         private readonly DeckManager _deckManager = deckManager;
         private readonly Random _sharedRandom = sharedRandom;
@@ -11,7 +11,22 @@ namespace GoFish.Players
 
         public void CreateStartingHand()
         {
-            _deckManager.GetDeckSize();
+            for (int i = 0; i < 7; i++)
+            {
+                Card card = _deckManager.DrawRandomCard();
+                if (card != null)
+                {
+                    PlayerHand.Add(card);
+                }
+            }
+        }
+
+        public void ViewHand()
+        {
+            foreach (Card card in PlayerHand)
+            {
+                Console.WriteLine(card);
+            }
         }
     }
 }
