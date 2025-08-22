@@ -13,6 +13,8 @@ namespace GoFish.Game
             _deckManager.GenerateDefaultDeck();
             _player.CreateStartingHand();
             _ai.CreateStartingHand();
+
+            _player.GetPlayerName();
         }
     }
 }
