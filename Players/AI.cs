@@ -1,4 +1,5 @@
 using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
 using GoFish.Game;
 using GoFish.GameCards;
 using GoFish.HelperMethods;
@@ -16,7 +17,7 @@ namespace GoFish.Players
             "Dave", "Bob", "ChatGPT", "John"
         };
 
-        string? AIName { get; set; }
+        public string? AIName { get; set; }
 
         public void CreateStartingHand()
         {
@@ -51,6 +52,13 @@ namespace GoFish.Players
         public void ViewAIName()
         {
             Console.WriteLine($"The AI is called {AIName}");
+        }
+
+        public Rank? GetRankFromInt(int value)
+        {
+            if (Enum.IsDefined(typeof(Rank), value))
+                return (Rank)value;
+            return null;
         }
 
         public List<Card> CheckHandRanks(Rank rank)
