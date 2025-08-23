@@ -1,4 +1,4 @@
-﻿/* 
+﻿﻿/* 
 Layout planning
 
 Goal: create a go fish game with a human controlled player and an ai
@@ -33,7 +33,7 @@ public class GameInitializer
         DeckManager deckManager = new DeckManager(sharedRandom);
         AI ai = new AI(deckManager, sharedRandom);
         Player player = new Player(deckManager, sharedRandom);
-        TurnManager turnManager = new TurnManager(player, ai);
+        TurnManager turnManager = new TurnManager(player, ai, deckManager);
         GameManager gameManager = new GameManager(deckManager, player, ai, sharedRandom, turnManager);
         return new MenuManager(gameManager);
     }

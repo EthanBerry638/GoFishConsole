@@ -52,5 +52,10 @@ namespace GoFish.Players
         {
             Console.WriteLine($"The AI is called {AIName}");
         }
+
+        public List<Card> CheckHandRanks(Rank rank)
+        {
+            return AIHand.Where(card => card.Rank == rank).ToList();
+        }
     }
 }

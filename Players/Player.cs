@@ -53,5 +53,10 @@ namespace GoFish.Players
 
             Console.WriteLine($"Welcome, {PlayerName}!");
         }
+
+        public List<Card> CheckHandRank(Rank rank)
+        {
+            return PlayerHand.Where(card => card.Rank == rank).ToList();
+        }
     }
 }
