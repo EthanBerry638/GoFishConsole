@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using GoFish.Game;
@@ -68,7 +69,7 @@ namespace GoFish.Players
             return AIHand.Where(card => card.Rank == rank).ToList();
         }
 
-        public bool CheckForBooks()
+        public Rank CheckForBooks()
         {
             Dictionary<Rank, int> Ranks = new Dictionary<Rank, int>();
 
@@ -85,12 +86,11 @@ namespace GoFish.Players
 
                 if (Ranks[AIHand[i].Rank] == 4)
                 {
-                    return true;
+                    return AIHand[i].Rank;
                 }
             }
 
-
-            return false;
+            return Rank.None;
         }
     }
 }

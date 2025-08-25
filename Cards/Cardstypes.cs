@@ -10,6 +10,7 @@ namespace GoFish.GameCards
 
     public enum Rank
     {
+        None = -1,
         Two = 2,
         Three,
         Four,
