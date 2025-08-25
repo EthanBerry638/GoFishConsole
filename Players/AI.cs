@@ -17,6 +17,8 @@ namespace GoFish.Players
             "Dave", "Bob", "ChatGPT", "John"
         };
 
+        public int AIBooks = 0;
+
         public string? AIName { get; set; }
 
         public void CreateStartingHand()
@@ -64,6 +66,31 @@ namespace GoFish.Players
         public List<Card> CheckHandRanks(Rank rank)
         {
             return AIHand.Where(card => card.Rank == rank).ToList();
+        }
+
+        public bool CheckForBooks()
+        {
+            Dictionary<Rank, int> Ranks = new Dictionary<Rank, int>();
+
+            for (int i = 0; i < AIHand.Count; i++)
+            {
+                if (Ranks.ContainsKey(AIHand[i].Rank))
+                {
+                    Ranks[AIHand[i].Rank]++;
+                }
+                else
+                {
+                    Ranks.Add(AIHand[i].Rank, 1);
+                }
+
+                if (Ranks[AIHand[i].Rank] == 4)
+                {
+                    return true;
+                }
+            }
+
+
+            return false;
         }
     }
 }
