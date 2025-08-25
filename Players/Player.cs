@@ -14,6 +14,10 @@ namespace GoFish.Players
 
         public bool PlayerTurn = false;
 
+        public int playerBooks = 0;
+
+        private Dictionary<Rank, int> playerRanks = new Dictionary<Rank, int>();
+
         public void CreateStartingHand()
         {
             for (int i = 0; i < 7; i++)
@@ -57,6 +61,28 @@ namespace GoFish.Players
         public List<Card> CheckHandRank(Rank rank)
         {
             return PlayerHand.Where(card => card.Rank == rank).ToList();
+        }
+
+        public Rank CheckForBooks()
+        {
+            for (int i = 0; i < PlayerHand.Count; i++)
+            {
+                if (playerRanks.ContainsKey(PlayerHand[i].Rank))
+                {
+                    playerRanks[PlayerHand[i].Rank]++;
+                }
+                else
+                {
+                    playerRanks.Add(PlayerHand[i].Rank, 1);
+                }
+
+                if (playerRanks[PlayerHand[i].Rank] == 4)
+                {
+                    return PlayerHand[i].Rank;
+                }
+            }
+
+            return Rank.None;
         }
     }
 }
