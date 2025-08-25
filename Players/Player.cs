@@ -78,6 +78,9 @@ namespace GoFish.Players
 
                 if (playerRanks[PlayerHand[i].Rank] == 4)
                 {
+                    playerBooks += 1;
+                    Console.WriteLine($"{PlayerName} got a book of {PlayerHand[i].Rank}! They now have {playerBooks} books!");
+                    Utils.Pause(200);
                     return PlayerHand[i].Rank;
                 }
             }

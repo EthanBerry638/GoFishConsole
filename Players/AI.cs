@@ -86,6 +86,9 @@ namespace GoFish.Players
 
                 if (aiRanks[AIHand[i].Rank] == 4)
                 {
+                    aiBooks += 1;
+                    Console.WriteLine($"{AIName} got a book of {AIHand[i].Rank}! They now have {aiBooks} books!");
+                    Utils.Pause(200);
                     return AIHand[i].Rank;
                 }
             }

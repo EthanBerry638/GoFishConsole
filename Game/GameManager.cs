@@ -49,10 +49,12 @@ namespace GoFish.Game
                 if (_player.PlayerTurn)
                 {
                     _turnManager.PlayerTurn();
+                    _player.CheckForBooks();
                 }
                 else
                 {
                     _turnManager.AITurn();
+                    _ai.CheckForBooks();
                 }
             }
         }
