@@ -97,7 +97,7 @@ namespace GoFish.Players
         {
             return PlayerHand.Any(card => card.Rank == rank);
         }
-        
+
         public bool IsHandEmpty()
         {
             if (PlayerHand.Count == 0)
@@ -106,5 +106,20 @@ namespace GoFish.Players
             }
             return false;
         }
+
+        public void RefillHandToCount(List<Card> hand, int targetCount)
+        {
+            while (PlayerHand.Count < targetCount && _deckManager.deck.Count > 0)
+            {
+                Card? card = _deckManager.DrawRandomCard();
+                if (card != null)
+                {
+                    PlayerHand.Add(card);
+                }
+            }
+
+            Console.WriteLine($"Hand refilled to {PlayerHand.Count} card(s). Deck has {_deckManager.deck.Count} left.");
+        }
+
     }
 }

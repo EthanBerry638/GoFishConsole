@@ -2,7 +2,7 @@ using GoFish.GameCards;
 
 namespace GoFish.Game
 {
-    public class DeckManager (Random sharedRandom)
+    public class DeckManager(Random sharedRandom)
     {
         private readonly Random _sharedRandom = sharedRandom;
         public List<Card> deck = new List<Card>();
@@ -41,6 +41,18 @@ namespace GoFish.Game
             deck.RemoveAt(index);
             return card;
         }
-        
+
+        public void RefillHand()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (deck.Count == 0)
+                {
+                    Console.WriteLine($"Hand was filled up by {i} cards. Deck is now empty");
+                    break;
+                }
+                DrawRandomCard();
+            }
+        }
     }
 }

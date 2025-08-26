@@ -110,5 +110,19 @@ namespace GoFish.Players
             }
             return false;
         }
+
+        public void RefillHandToCount(List<Card> hand, int targetCount)
+        {
+            while (AIHand.Count < targetCount && _deckManager.deck.Count > 0)
+            {
+                Card? card = _deckManager.DrawRandomCard();
+                if (card != null)
+                {
+                    AIHand.Add(card);
+                }
+            }
+
+            Console.WriteLine($"Hand refilled to {AIHand.Count} card(s). Deck has {_deckManager.deck.Count} left.");
+        }
     }
 }
