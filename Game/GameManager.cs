@@ -1,5 +1,6 @@
 using System.Security.AccessControl;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using GoFish.GameCards;
 using GoFish.HelperMethods;
 using GoFish.Players;
@@ -13,6 +14,9 @@ namespace GoFish.Game
         private readonly DeckManager _deckManager = deckManager;
         private readonly Random _sharedRandom = sharedRandom;
         private readonly TurnManager _turnManager = turnManager;
+        bool aiWin = false;
+        bool playerWin = false;
+        bool isDraw = false;
         public void StartGame()
         {
             _deckManager.GenerateDefaultDeck();
@@ -21,6 +25,7 @@ namespace GoFish.Game
 
             _player.GetPlayerName();
             _ai.GetAIName();
+            GameLoop();
         }
 
         public bool IsGameOver()
@@ -56,26 +61,29 @@ namespace GoFish.Game
                 }
 
                 if (_player.PlayerTurn)
+                {
+                    _turnManager.PlayerTurn();
+                    if (_player.CheckForBooks() != Rank.None)
                     {
-                        _turnManager.PlayerTurn();
-                        if (_player.CheckForBooks() != Rank.None)
-                        {
-                            Console.WriteLine($"{_player.PlayerName} gets another turn!");
-                            Utils.Pause(200);
-                            _player.PlayerTurn = true;
-                        }
+                        Console.WriteLine($"{_player.PlayerName} gets another turn!");
+                        Utils.Pause(200);
+                        _player.PlayerTurn = true;
                     }
-                    else
+                }
+                else
+                {
+                    _turnManager.AITurn();
+                    if (_player.CheckForBooks() != Rank.None)
                     {
-                        _turnManager.AITurn();
-                        if (_player.CheckForBooks() != Rank.None)
-                        {
-                            Console.WriteLine($"{_ai.AIName} gets another turn!");
-                            Utils.Pause(200);
-                            _ai.AITurn = true;
-                        }
+                        Console.WriteLine($"{_ai.AIName} gets another turn!");
+                        Utils.Pause(200);
+                        _ai.AITurn = true;
                     }
+                }
             }
+
+            DecideVictor();
+            DisplayVictoryMessage();
         }
 
         private string HeadsOrTailsInput()
@@ -123,6 +131,44 @@ namespace GoFish.Game
 
             Console.WriteLine("Unfortunately, you lost this coin flip...");
             return false;
+        }
+
+        public void DecideVictor()
+        {
+            if (_player.playerBooks > _ai.aiBooks)
+            {
+                playerWin = true;
+            }
+            else if (_ai.aiBooks > _player.playerBooks)
+            {
+                aiWin = true;
+            }
+            else
+            {
+                isDraw = true;
+            }
+        }
+
+        public void DisplayVictoryMessage()
+        {
+            if (aiWin)
+            {
+                Console.WriteLine($"Congratulations {_ai.AIName} for winning with {_ai.aiBooks} total books! Well done.");
+                Console.WriteLine("Press enter to return to the main menu...");
+                Console.ReadLine();
+            }
+            else if (playerWin)
+            {
+                Console.WriteLine($"Congratulations {player.PlayerName} for winning with {_player.playerBooks} total books! Well done.");
+                Console.WriteLine("Press enter to return to the main menu...");
+                Console.ReadLine();
+            }
+            else if (isDraw)
+            {
+                Console.WriteLine($"{_ai.AIName} and {_player.PlayerName} both had {_player.playerBooks} books! It's a draw!");
+                Console.WriteLine("Press enter to return to the main menu...");
+                Console.ReadLine();
+            }
         }
     }
 }

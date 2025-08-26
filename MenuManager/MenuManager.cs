@@ -17,7 +17,7 @@ namespace GoFish.Menu
         {
             while (true)
             {
-                Console.Clear();
+                // Console.Clear();
                 Console.WriteLine("Main Menu\n");
                 Utils.Pause(500);
                 DisplayMenuOptions();
