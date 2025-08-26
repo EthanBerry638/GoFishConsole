@@ -87,5 +87,10 @@ namespace GoFish.Players
 
             return Rank.None;
         }
+
+        public bool HasRank(Rank rank)
+        {
+            return PlayerHand.Any(card => card.Rank == rank);
+        }
     }
 }

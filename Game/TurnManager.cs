@@ -1,6 +1,7 @@
 using GoFish.Players;
 using GoFish.HelperMethods;
 using GoFish.GameCards;
+using Microsoft.VisualBasic;
 
 namespace GoFish.Game
 {
@@ -18,7 +19,12 @@ namespace GoFish.Game
             Console.WriteLine($"Your opponent has {_ai.AIHand.Count} cards in their current hand...");
             Utils.Pause(500);
             Console.WriteLine("Which rank do you want to guess they have? (1-10, Kings, Queens, Jacks, Aces)");
-            var guessedRank = GetPlayerInput();
+            var guessedRank = Rank.None;
+            while (!_player.HasRank(guessedRank))
+            {
+                Console.WriteLine($"You must ask for a rank you currently hold. Try again.");
+                guessedRank = GetPlayerInput();
+            }
             var matchingCards = _ai.CheckHandRanks(guessedRank);
 
             if (matchingCards.Any())
@@ -60,9 +66,9 @@ namespace GoFish.Game
         {
             Console.WriteLine($"{_ai.AIName} is picking a rank...");
             Utils.Pause(500);
-            int aiGuess = _sharedRandom.Next(0, 13);
 
-            Rank guessedRank = _ai.GetRankFromInt(aiGuess) ?? throw new InvalidOperationException("Invalid rank value.");
+            var availableRanks = _ai.AIHand.Select(card => card.Rank).Distinct().ToList();
+            Rank guessedRank = availableRanks[_sharedRandom.Next(availableRanks.Count)];
             Console.WriteLine($"{_ai.AIName} has guessed {guessedRank}! Checking your hand for any matching ranks...");
             var matchingCards = _player.CheckHandRank(guessedRank);
             Utils.Pause(2500);
