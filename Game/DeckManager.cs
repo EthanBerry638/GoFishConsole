@@ -41,5 +41,6 @@ namespace GoFish.Game
             deck.RemoveAt(index);
             return card;
         }
+        
     }
 }

@@ -85,7 +85,7 @@ namespace GoFish.Players
                     Utils.Pause(200);
 
                     PlayerHand.RemoveAll(card => card.Rank == currentRank);
-                    
+
                     return PlayerHand[i].Rank;
                 }
             }
@@ -96,6 +96,15 @@ namespace GoFish.Players
         public bool HasRank(Rank rank)
         {
             return PlayerHand.Any(card => card.Rank == rank);
+        }
+        
+        public bool IsHandEmpty()
+        {
+            if (PlayerHand.Count == 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

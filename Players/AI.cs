@@ -101,6 +101,14 @@ namespace GoFish.Players
 
             return Rank.None;
         }
-        
+
+        public bool IsHandEmpty()
+        {
+            if (AIHand.Count == 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
