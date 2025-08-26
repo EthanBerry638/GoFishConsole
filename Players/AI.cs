@@ -75,6 +75,9 @@ namespace GoFish.Players
         {
             for (int i = 0; i < AIHand.Count; i++)
             {
+                Rank currentRank = AIHand[i].Rank;
+
+
                 if (aiRanks.ContainsKey(AIHand[i].Rank))
                 {
                     aiRanks[AIHand[i].Rank]++;
@@ -89,11 +92,15 @@ namespace GoFish.Players
                     aiBooks += 1;
                     Console.WriteLine($"{AIName} got a book of {AIHand[i].Rank}! They now have {aiBooks} books!");
                     Utils.Pause(200);
+
+                    AIHand.RemoveAll(card => card.Rank == currentRank);
+
                     return AIHand[i].Rank;
                 }
             }
 
             return Rank.None;
         }
+        
     }
 }

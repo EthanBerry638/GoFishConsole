@@ -67,6 +67,8 @@ namespace GoFish.Players
         {
             for (int i = 0; i < PlayerHand.Count; i++)
             {
+                Rank currentRank = PlayerHand[i].Rank;
+
                 if (playerRanks.ContainsKey(PlayerHand[i].Rank))
                 {
                     playerRanks[PlayerHand[i].Rank]++;
@@ -81,6 +83,9 @@ namespace GoFish.Players
                     playerBooks += 1;
                     Console.WriteLine($"{PlayerName} got a book of {PlayerHand[i].Rank}! They now have {playerBooks} books!");
                     Utils.Pause(200);
+
+                    PlayerHand.RemoveAll(card => card.Rank == currentRank);
+                    
                     return PlayerHand[i].Rank;
                 }
             }
