@@ -46,26 +46,35 @@ namespace GoFish.Game
             }
             while (!IsGameOver())
             {
+                if (_player.IsHandEmpty())
+                {
+                    _player.RefillHandToCount(_player.PlayerHand, 5);
+                }
+                else if (_ai.IsHandEmpty())
+                {
+                    _ai.RefillHandToCount(_ai.AIHand, 5);
+                }
+
                 if (_player.PlayerTurn)
-                {
-                    _turnManager.PlayerTurn();
-                    if (_player.CheckForBooks() != Rank.None)
                     {
-                        Console.WriteLine($"{_player.PlayerName} gets another turn!");
-                        Utils.Pause(200);
-                        _player.PlayerTurn = true;
+                        _turnManager.PlayerTurn();
+                        if (_player.CheckForBooks() != Rank.None)
+                        {
+                            Console.WriteLine($"{_player.PlayerName} gets another turn!");
+                            Utils.Pause(200);
+                            _player.PlayerTurn = true;
+                        }
                     }
-                }
-                else
-                {
-                    _turnManager.AITurn();
-                    if (_player.CheckForBooks() != Rank.None)
+                    else
                     {
-                        Console.WriteLine($"{_ai.AIName} gets another turn!");
-                        Utils.Pause(200);
-                        _ai.AITurn = true;
+                        _turnManager.AITurn();
+                        if (_player.CheckForBooks() != Rank.None)
+                        {
+                            Console.WriteLine($"{_ai.AIName} gets another turn!");
+                            Utils.Pause(200);
+                            _ai.AITurn = true;
+                        }
                     }
-                }
             }
         }
 

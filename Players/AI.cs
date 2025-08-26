@@ -111,7 +111,7 @@ namespace GoFish.Players
             return false;
         }
 
-        public void RefillHandToCount(List<Card> hand, int targetCount)
+        public void RefillHandToCount(List<Card> AIHand, int targetCount)
         {
             while (AIHand.Count < targetCount && _deckManager.deck.Count > 0)
             {
