@@ -11,9 +11,11 @@ namespace GoFish.Game
         private readonly AI _ai = ai;
         private readonly DeckManager _deckManager = deckManager;
         private readonly Random _sharedRandom = sharedRandom;
+        public bool correctGuess;
 
         public void PlayerTurn()
         {
+            correctGuess = false;
             Console.WriteLine("This is your current hand: ");
             _player.ViewHand();
             Console.WriteLine($"Your opponent has {_ai.AIHand.Count} cards in their current hand...");
@@ -26,7 +28,7 @@ namespace GoFish.Game
                 guessedRank = GetPlayerInput();
             }
             var matchingCards = _ai.CheckHandRanks(guessedRank);
-            _player.CorrectGuess = matchingCards.Any();
+            correctGuess = matchingCards.Any();
 
             foreach (var card in matchingCards)
             {
@@ -36,7 +38,7 @@ namespace GoFish.Game
             _player.PlayerHand.AddRange(matchingCards);
 
 
-            if (_player.CorrectGuess)
+            if (correctGuess)
             {
                 Console.WriteLine($"{_ai.AIName} has {matchingCards.Count} card(s) of rank {guessedRank}!");
             }
@@ -72,6 +74,7 @@ namespace GoFish.Game
 
         public void AITurn()
         {
+            correctGuess = false;
             Console.WriteLine($"{_ai.AIName} is picking a rank...");
             Utils.Pause(500);
 
@@ -79,7 +82,7 @@ namespace GoFish.Game
             Rank guessedRank = availableRanks[_sharedRandom.Next(availableRanks.Count)];
             Console.WriteLine($"{_ai.AIName} has guessed {guessedRank}! Checking your hand for any matching ranks...");
             var matchingCards = _player.CheckHandRank(guessedRank);
-            _ai.CorrectGuess = matchingCards.Any();
+            correctGuess = matchingCards.Any();
             Utils.Pause(2500);
 
             foreach (var card in matchingCards)
@@ -89,7 +92,7 @@ namespace GoFish.Game
 
             _ai.AIHand.AddRange(matchingCards);
 
-            if (_ai.CorrectGuess)
+            if (correctGuess)
             {
                 Console.WriteLine($"You had {matchingCards.Count} card(s) of rank {guessedRank}!");
             }

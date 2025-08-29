@@ -63,7 +63,7 @@ namespace GoFish.Game
                 if (_player.PlayerTurn)
                 {
                     _turnManager.PlayerTurn();
-                    if (_player.CheckForBooks() != Rank.None || _player.CorrectGuess)
+                    if (_player.CheckForBooks() != Rank.None || _turnManager.correctGuess)
                     {
                         Console.WriteLine($"{_player.PlayerName} gets another turn!");
                         Utils.Pause(200);
@@ -77,7 +77,7 @@ namespace GoFish.Game
                 else
                 {
                     _turnManager.AITurn();
-                    if (_ai.CheckForBooks() != Rank.None || _ai.CorrectGuess)
+                    if (_ai.CheckForBooks() != Rank.None || _turnManager.correctGuess)
                     {
                         Console.WriteLine($"{_ai.AIName} gets another turn!");
                         Utils.Pause(200);
