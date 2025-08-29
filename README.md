@@ -36,7 +36,6 @@ This game is part of my journey to become job-ready as a C#/.NET developer. It r
 - 📁 Leaderboard with file-based saving  
 - 🧩 Refactor "Play" menu into "New Game" or "Continue" with up to 3 recent saves  
 - 🧠 Difficulty levels for AI  
-- 🏁 Finish core game logic and polish UX  
 
 ---
 
@@ -46,9 +45,18 @@ This game is part of my journey to become job-ready as a C#/.NET developer. It r
 - [.NET SDK 8.0+](https://dotnet.microsoft.com/en-us/download) installed  
 - A terminal or IDE like Visual Studio or VS Code  
 
-#### Steps
 
-1. **Clone the repository**
+
+-Clone the repository
    ```bash
    git clone https://github.com/EthanBerry638/GoFishConsole.git
    cd GoFishConsole
+
+-Build and run the project
+dotnet build
+dotnet run
+
+-Follow the console prompts
+-Choose to start a new game
+-Enter card ranks when prompted (e.g., Ace, Seven, King)
+-Play until all books are completed!
