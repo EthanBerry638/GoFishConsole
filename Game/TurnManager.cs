@@ -27,6 +27,14 @@ namespace GoFish.Game
             }
             var matchingCards = _ai.CheckHandRanks(guessedRank);
 
+            foreach (var card in matchingCards)
+            {
+                _ai.AIHand.Remove(card);
+            }
+
+            _player.PlayerHand.AddRange(matchingCards);
+
+
             if (matchingCards.Any())
             {
                 Console.WriteLine($"{_ai.AIName} has {matchingCards.Count} card(s) of rank {guessedRank}!");
@@ -72,6 +80,13 @@ namespace GoFish.Game
             Console.WriteLine($"{_ai.AIName} has guessed {guessedRank}! Checking your hand for any matching ranks...");
             var matchingCards = _player.CheckHandRank(guessedRank);
             Utils.Pause(2500);
+
+            foreach (var card in matchingCards)
+            {
+                _player.PlayerHand.Remove(card);
+            }
+
+            _ai.AIHand.AddRange(matchingCards);
 
             if (matchingCards.Any())
             {

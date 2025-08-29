@@ -73,29 +73,26 @@ namespace GoFish.Players
 
         public Rank CheckForBooks()
         {
-            for (int i = 0; i < AIHand.Count; i++)
+            Dictionary<Rank, int> rankCounts = new Dictionary<Rank, int>();
+
+            foreach (Card card in AIHand)
             {
-                Rank currentRank = AIHand[i].Rank;
-
-
-                if (aiRanks.ContainsKey(AIHand[i].Rank))
-                {
-                    aiRanks[AIHand[i].Rank]++;
-                }
+                if (rankCounts.ContainsKey(card.Rank))
+                    rankCounts[card.Rank]++;
                 else
-                {
-                    aiRanks.Add(AIHand[i].Rank, 1);
-                }
+                    rankCounts[card.Rank] = 1;
+            }
 
-                if (aiRanks[AIHand[i].Rank] == 4)
+            foreach (var pair in rankCounts)
+            {
+                if (pair.Value == 4)
                 {
-                    aiBooks += 1;
-                    Console.WriteLine($"{AIName} got a book of {AIHand[i].Rank}! They now have {aiBooks} books!");
+                    aiBooks++;
+                    Console.WriteLine($"{AIName} got a book of {pair.Key}! They now have {aiBooks} books!");
                     Utils.Pause(200);
 
-                    AIHand.RemoveAll(card => card.Rank == currentRank);
-
-                    return AIHand[i].Rank;
+                    AIHand.RemoveAll(card => card.Rank == pair.Key);
+                    return pair.Key;
                 }
             }
 

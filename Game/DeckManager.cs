@@ -14,6 +14,10 @@ namespace GoFish.Game
             {
                 foreach (Rank rank in Enum.GetValues(typeof(Rank)))
                 {
+                    if (rank == Rank.None)
+                    {
+                        continue;
+                    }
                     deck.Add(new Card(suit, rank));
                 }
             }
