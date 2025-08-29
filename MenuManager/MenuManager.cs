@@ -33,7 +33,7 @@ namespace GoFish.Menu
             Utils.Pause(200);
             Console.WriteLine("3. Exit");
             Utils.Pause(200);
-            Console.WriteLine("\nPlease enter an option from the list: ");
+            Console.Write("\nPlease enter an option from the list: ");
             Utils.Pause(200);
         }
 
@@ -54,20 +54,20 @@ namespace GoFish.Menu
                 switch (choice)
                 {
                     case MenuChoices.Play:
-                        Console.WriteLine("Starting game...");
+                        Console.WriteLine("\nStarting game...\n");
                         Utils.Pause(200);
                         _gameManager.StartGame();
                         break;
 
                     case MenuChoices.Tutorial:
-                        Console.WriteLine("Launching tutorial...");
-                        Utils.Pause(200);
+                        Console.WriteLine("\nLaunching tutorial...");
+                        Utils.Pause(1500);
                         ShowTutorial();
                         break;
 
                     case MenuChoices.Exit:
-                        Console.WriteLine("Exiting game thank you for playing...");
-                        Utils.Pause(200);
+                        Console.WriteLine("\nExiting game thank you for playing...\n");
+                        Utils.Pause(2000);
                         Environment.Exit(0);
                         break;
                 }

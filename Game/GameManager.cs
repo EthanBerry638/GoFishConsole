@@ -51,6 +51,7 @@ namespace GoFish.Game
             }
             while (!IsGameOver())
             {
+                Console.WriteLine($"Deck size left: {_deckManager.deck.Count}\n");
                 if (_player.IsHandEmpty())
                 {
                     _player.RefillHandToCount(_player.PlayerHand, 5);
@@ -65,7 +66,7 @@ namespace GoFish.Game
                     _turnManager.PlayerTurn();
                     if (_player.CheckForBooks() != Rank.None || _turnManager.correctGuess)
                     {
-                        Console.WriteLine($"{_player.PlayerName} gets another turn!");
+                        Console.WriteLine($"{_player.PlayerName} gets another turn!\n");
                         Utils.Pause(200);
                     }
                     else
@@ -79,7 +80,7 @@ namespace GoFish.Game
                     _turnManager.AITurn();
                     if (_ai.CheckForBooks() != Rank.None || _turnManager.correctGuess)
                     {
-                        Console.WriteLine($"{_ai.AIName} gets another turn!");
+                        Console.WriteLine($"{_ai.AIName} gets another turn!\n");
                         Utils.Pause(200);
                         _ai.AITurn = true;
                     }
@@ -134,11 +135,13 @@ namespace GoFish.Game
 
             if (coinFlip <= 5)
             {
-                Console.WriteLine("You guessed correctly! You go first!");
+                Console.WriteLine("\nYou guessed correctly! You go first!\n");
+                Utils.Pause(200);
                 return true;
             }
 
-            Console.WriteLine("Unfortunately, you lost this coin flip...");
+            Console.WriteLine("\nUnfortunately, you lost this coin flip...\n");
+            Utils.Pause(200);
             return false;
         }
 
@@ -163,12 +166,15 @@ namespace GoFish.Game
             if (aiWin)
             {
                 Console.WriteLine($"Congratulations {_ai.AIName} for winning with {_ai.aiBooks} total books! Well done.");
+                Utils.Pause(400);
+                Console.WriteLine($"Well done {_player.PlayerName} for second place with {_player.playerBooks} books!");
                 Console.WriteLine("Press enter to return to the main menu...");
                 Console.ReadLine();
             }
             else if (playerWin)
             {
                 Console.WriteLine($"Congratulations {player.PlayerName} for winning with {_player.playerBooks} total books! Well done.");
+                Console.WriteLine($"Well done {_ai.AIName} for second place with {_ai.aiBooks} books!");
                 Console.WriteLine("Press enter to return to the main menu...");
                 Console.ReadLine();
             }

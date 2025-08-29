@@ -18,13 +18,15 @@ namespace GoFish.Game
             correctGuess = false;
             Console.WriteLine("This is your current hand: ");
             _player.ViewHand();
-            Console.WriteLine($"Your opponent has {_ai.AIHand.Count} cards in their current hand...");
+            Console.WriteLine($"\nYour opponent has {_ai.AIHand.Count} cards in their current hand...\n");
             Utils.Pause(500);
             Console.WriteLine("Which rank do you want to guess they have? (1-10, Kings, Queens, Jacks, Aces)");
+            Utils.Pause(400);
             var guessedRank = Rank.None;
             while (!_player.HasRank(guessedRank))
             {
-                Console.WriteLine($"You must ask for a rank you currently hold. Try again.");
+                Console.WriteLine($"\nYou must ask for a rank you currently hold\n");
+                Utils.Pause(200);
                 guessedRank = GetPlayerInput();
             }
             var matchingCards = _ai.CheckHandRanks(guessedRank);
@@ -40,12 +42,15 @@ namespace GoFish.Game
 
             if (correctGuess)
             {
-                Console.WriteLine($"{_ai.AIName} has {matchingCards.Count} card(s) of rank {guessedRank}!");
+                Console.WriteLine($"\n{_ai.AIName} has {matchingCards.Count} card(s) of rank {guessedRank}!");
             }
             else
             {
-                Console.WriteLine("Go Fish!");
+                Console.WriteLine($"\n{_ai.AIName} says Go Fish!");
+                Utils.Pause(200);
                 Card? card = _deckManager.DrawRandomCard();
+                Console.WriteLine($"\nYou drew {card}!\n");
+                Utils.Pause(1000);
                 if (card != null)
                 {
                     _player.PlayerHand.Add(card);
@@ -68,7 +73,8 @@ namespace GoFish.Game
                         return rank;
                 }
 
-                Console.WriteLine("Please enter a valid rank. (Ace, Two, ..., King)");
+                Console.WriteLine("\nPlease enter a valid rank. (Ace, Two, ..., King)\n");
+                Utils.Pause(200);
             }
         }
 
@@ -94,11 +100,12 @@ namespace GoFish.Game
 
             if (correctGuess)
             {
-                Console.WriteLine($"You had {matchingCards.Count} card(s) of rank {guessedRank}!");
+                Console.WriteLine($"\nYou had {matchingCards.Count} card(s) of rank {guessedRank}!");
             }
             else
             {
-                Console.WriteLine($"{_ai.AIName} goes fish!");
+                Console.WriteLine($"\n{_ai.AIName} goes fish!\n");
+                Utils.Pause(2500);
                 Card? card = _deckManager.DrawRandomCard();
                 if (card != null)
                 {

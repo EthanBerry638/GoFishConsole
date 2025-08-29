@@ -46,7 +46,7 @@ namespace GoFish.Players
         {
             do
             {
-                Console.WriteLine("Please enter your name. This will be used for the leaderboard (In development)");
+                Console.Write("Please enter your name. This will be used for the leaderboard (In development) ");
                 PlayerName = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(PlayerName))
@@ -55,7 +55,8 @@ namespace GoFish.Players
                 }
             } while (string.IsNullOrWhiteSpace(PlayerName));
 
-            Console.WriteLine($"Welcome, {PlayerName}!");
+            Console.WriteLine($"\nWelcome, {PlayerName}!\n");
+            Utils.Pause(200);
         }
 
         public List<Card> CheckHandRank(Rank rank)
