@@ -26,6 +26,7 @@ namespace GoFish.Game
                 guessedRank = GetPlayerInput();
             }
             var matchingCards = _ai.CheckHandRanks(guessedRank);
+            _player.CorrectGuess = matchingCards.Any();
 
             foreach (var card in matchingCards)
             {
@@ -35,7 +36,7 @@ namespace GoFish.Game
             _player.PlayerHand.AddRange(matchingCards);
 
 
-            if (matchingCards.Any())
+            if (_player.CorrectGuess)
             {
                 Console.WriteLine($"{_ai.AIName} has {matchingCards.Count} card(s) of rank {guessedRank}!");
             }
@@ -48,7 +49,6 @@ namespace GoFish.Game
                     _player.PlayerHand.Add(card);
                 }
             }
-            _ai.AITurn = true;
         }
 
         private Rank GetPlayerInput()
@@ -79,6 +79,7 @@ namespace GoFish.Game
             Rank guessedRank = availableRanks[_sharedRandom.Next(availableRanks.Count)];
             Console.WriteLine($"{_ai.AIName} has guessed {guessedRank}! Checking your hand for any matching ranks...");
             var matchingCards = _player.CheckHandRank(guessedRank);
+            _ai.CorrectGuess = matchingCards.Any();
             Utils.Pause(2500);
 
             foreach (var card in matchingCards)
@@ -88,7 +89,7 @@ namespace GoFish.Game
 
             _ai.AIHand.AddRange(matchingCards);
 
-            if (matchingCards.Any())
+            if (_ai.CorrectGuess)
             {
                 Console.WriteLine($"You had {matchingCards.Count} card(s) of rank {guessedRank}!");
             }
@@ -101,8 +102,6 @@ namespace GoFish.Game
                     _ai.AIHand.Add(card);
                 }
             }
-
-            _player.PlayerTurn = true;
         }
     }
 }

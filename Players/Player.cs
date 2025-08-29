@@ -16,6 +16,8 @@ namespace GoFish.Players
 
         public int playerBooks = 0;
 
+        public bool CorrectGuess = false;
+
         private Dictionary<Rank, int> playerRanks = new Dictionary<Rank, int>();
 
         public void CreateStartingHand()

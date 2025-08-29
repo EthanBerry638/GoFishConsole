@@ -63,21 +63,30 @@ namespace GoFish.Game
                 if (_player.PlayerTurn)
                 {
                     _turnManager.PlayerTurn();
-                    if (_player.CheckForBooks() != Rank.None)
+                    if (_player.CheckForBooks() != Rank.None || _player.CorrectGuess)
                     {
                         Console.WriteLine($"{_player.PlayerName} gets another turn!");
                         Utils.Pause(200);
-                        _player.PlayerTurn = true;
+                    }
+                    else
+                    {
+                        _player.PlayerTurn = false;
+                        _ai.AITurn = true;
                     }
                 }
                 else
                 {
                     _turnManager.AITurn();
-                    if (_player.CheckForBooks() != Rank.None)
+                    if (_ai.CheckForBooks() != Rank.None || _ai.CorrectGuess)
                     {
                         Console.WriteLine($"{_ai.AIName} gets another turn!");
                         Utils.Pause(200);
                         _ai.AITurn = true;
+                    }
+                    else
+                    {
+                        ai.AITurn = false;
+                        _player.PlayerTurn = true;
                     }
                 }
             }

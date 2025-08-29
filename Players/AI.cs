@@ -23,6 +23,7 @@ namespace GoFish.Players
         public string? AIName { get; set; }
 
         private Dictionary<Rank, int> aiRanks = new Dictionary<Rank, int>();
+        public bool CorrectGuess = false;
 
         public void CreateStartingHand()
         {
