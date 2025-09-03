@@ -8,9 +8,10 @@ namespace GoFish.Menu
     {
         Play,
         Tutorial,
+        LeaderBoard,
         Exit
     }
-    public class MenuManager (GameManager gameManager)
+    public class MenuManager(GameManager gameManager)
     {
         private readonly GameManager _gameManager = gameManager;
         public void MainLoop()
@@ -31,7 +32,9 @@ namespace GoFish.Menu
             Utils.Pause(200);
             Console.WriteLine("2. Tutorial");
             Utils.Pause(200);
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Leaderboard");
+            Utils.Pause(200);
+            Console.WriteLine("4. Exit");
             Utils.Pause(200);
             Console.Write("\nPlease enter an option from the list: ");
             Utils.Pause(200);
@@ -64,7 +67,12 @@ namespace GoFish.Menu
                         Utils.Pause(1500);
                         ShowTutorial();
                         break;
-
+                    case MenuChoices.LeaderBoard:
+                        Console.WriteLine("\nLoading leaderboard...");
+                        Utils.Pause(2000);
+                        Console.Clear();
+                        ShowLeaderBoard();
+                        break;
                     case MenuChoices.Exit:
                         Console.WriteLine("\nExiting game thank you for playing...\n");
                         Utils.Pause(2000);
@@ -103,6 +111,17 @@ namespace GoFish.Menu
             Utils.Pause(200);
             Console.WriteLine("The player with the most books(points) wins the game!");
             Console.WriteLine("\nPress the enter key to return to the main menu: ");
+            Console.ReadLine();
+        }
+
+        public void ShowLeaderBoard()
+        {
+            string[] lines = File.ReadAllLines(@"C:\Users\ethan\Desktop\Coding Projects\CSharpSelfMiniProjects\GoFishConsole\MenuManager\LeaderBoard.txt");
+            Array.Sort(lines);
+            foreach (string line in lines)
+            {
+                Console.WriteLine(line);
+            }
             Console.ReadLine();
         }
     }
