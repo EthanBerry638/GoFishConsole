@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using GoFish.Game;
 using GoFish.HelperMethods;
+using LeaderBoardManager;
 
 namespace GoFish.Menu
 {
@@ -11,9 +12,10 @@ namespace GoFish.Menu
         LeaderBoard,
         Exit
     }
-    public class MenuManager(GameManager gameManager)
+    public class MenuManager(GameManager gameManager, LeaderBoards leaderBoard)
     {
         private readonly GameManager _gameManager = gameManager;
+        private readonly LeaderBoards _leaderBoard = leaderBoard;
         public void MainLoop()
         {
             while (true)
@@ -116,12 +118,13 @@ namespace GoFish.Menu
 
         public void ShowLeaderBoard()
         {
-            string[] lines = File.ReadAllLines(@"C:\Users\ethan\Desktop\Coding Projects\CSharpSelfMiniProjects\GoFishConsole\MenuManager\LeaderBoard.txt");
-            Array.Sort(lines);
-            foreach (string line in lines)
+            Array.Sort(_leaderBoard.lines);
+            foreach (string line in _leaderBoard.lines)
             {
                 Console.WriteLine(line);
+                Utils.Pause(300);
             }
+            Console.WriteLine("\nPress the enter key to return to the main menu; ");
             Console.ReadLine();
         }
     }

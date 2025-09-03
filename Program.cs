@@ -22,6 +22,7 @@ Game phase for dealing, playerturn, etc.
 using GoFish.Game;
 using GoFish.Menu;
 using GoFish.Players;
+using LeaderBoardManager;
 
 MenuManager menuManager = GameInitializer.InitializeGame();
 menuManager.MainLoop();
@@ -35,6 +36,7 @@ public class GameInitializer
         Player player = new Player(deckManager, sharedRandom);
         TurnManager turnManager = new TurnManager(player, ai, deckManager, sharedRandom);
         GameManager gameManager = new GameManager(deckManager, player, ai, sharedRandom, turnManager);
-        return new MenuManager(gameManager);
+        LeaderBoards leaderBoard = new LeaderBoards();
+        return new MenuManager(gameManager, leaderBoard);
     }
 }
