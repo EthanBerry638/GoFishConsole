@@ -14,8 +14,9 @@ namespace LeaderBoardManager
             File.AppendAllText(path, entry);
         }
 
-        private void OrderLines()
+        private List<string> OrderLines()
         {
+            List<string> orderedLines = new List<string>();
             foreach (string line in lines)
             {
                 int firstIndex = line.IndexOf("/");
@@ -24,12 +25,17 @@ namespace LeaderBoardManager
                 if (firstIndex != -1 && secondIndex != -1 && secondIndex > firstIndex)
                 {
                     string scoreFromFile = line.Substring(firstIndex + 1, secondIndex - firstIndex - 1);
+                    orderedLines.Add(scoreFromFile);
                 }
                 else
                 {
                     continue;
                 }
             }
+
+            orderedLines.Sort();
+
+            return orderedLines;
         }
     }
 }
