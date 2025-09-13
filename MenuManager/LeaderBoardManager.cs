@@ -11,7 +11,25 @@ namespace LeaderBoardManager
         {
             DateTime dateTime = DateTime.Now;
             string entry = leaderBoardEntry.Name + "/" + leaderBoardEntry.Score + "/" + dateTime;
-            File.WriteAllText(path, entry);
+            File.AppendAllText(path, entry);
+        }
+
+        private void OrderLines()
+        {
+            foreach (string line in lines)
+            {
+                int firstIndex = line.IndexOf("/");
+                int secondIndex = line.IndexOf("/", firstIndex + 1);
+
+                if (firstIndex != -1 && secondIndex != -1 && secondIndex > firstIndex)
+                {
+                    string scoreFromFile = line.Substring(firstIndex + 1, secondIndex - firstIndex - 1);
+                }
+                else
+                {
+                    continue;
+                }
+            }
         }
     }
 }
