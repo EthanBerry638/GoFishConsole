@@ -35,8 +35,8 @@ public class GameInitializer
         AI ai = new AI(deckManager, sharedRandom);
         Player player = new Player(deckManager, sharedRandom);
         TurnManager turnManager = new TurnManager(player, ai, deckManager, sharedRandom);
-        GameManager gameManager = new GameManager(deckManager, player, ai, sharedRandom, turnManager);
         LeaderBoards leaderBoard = new LeaderBoards();
+        GameManager gameManager = new GameManager(deckManager, player, ai, sharedRandom, turnManager, leaderBoard);
         return new MenuManager(gameManager, leaderBoard);
     }
 }

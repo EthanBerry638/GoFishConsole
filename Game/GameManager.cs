@@ -4,16 +4,18 @@ using System.Security.Cryptography.X509Certificates;
 using GoFish.GameCards;
 using GoFish.HelperMethods;
 using GoFish.Players;
+using LeaderBoardManager;
 
 namespace GoFish.Game
 {
-    public class GameManager(DeckManager deckManager, Player player, AI ai, Random sharedRandom, TurnManager turnManager)
+    public class GameManager(DeckManager deckManager, Player player, AI ai, Random sharedRandom, TurnManager turnManager, LeaderBoards leaderBoards)
     {
         private readonly Player _player = player;
         private readonly AI _ai = ai;
         private readonly DeckManager _deckManager = deckManager;
         private readonly Random _sharedRandom = sharedRandom;
         private readonly TurnManager _turnManager = turnManager;
+        private readonly LeaderBoards _leaderBoards = leaderBoards;
         bool aiWin = false;
         bool playerWin = false;
         bool isDraw = false;
@@ -168,6 +170,9 @@ namespace GoFish.Game
                 Console.WriteLine($"Congratulations {_ai.AIName} for winning with {_ai.aiBooks} total books! Well done.");
                 Utils.Pause(400);
                 Console.WriteLine($"Well done {_player.PlayerName} for second place with {_player.playerBooks} books!");
+                LeaderBoardEntry aiEntry = new LeaderBoardEntry(_ai.AIName!, _ai.aiBooks);
+                _leaderBoards.WriteToLeaderBoard(aiEntry);
+                Console.WriteLine(aiEntry);
                 Console.WriteLine("Press enter to return to the main menu...");
                 Console.ReadLine();
             }
@@ -175,6 +180,9 @@ namespace GoFish.Game
             {
                 Console.WriteLine($"Congratulations {player.PlayerName} for winning with {_player.playerBooks} total books! Well done.");
                 Console.WriteLine($"Well done {_ai.AIName} for second place with {_ai.aiBooks} books!");
+                LeaderBoardEntry playerEntry = new LeaderBoardEntry(_player.PlayerName!, _player.playerBooks);
+                _leaderBoards.WriteToLeaderBoard(playerEntry);
+                Console.WriteLine(playerEntry);
                 Console.WriteLine("Press enter to return to the main menu...");
                 Console.ReadLine();
             }

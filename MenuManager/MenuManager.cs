@@ -48,7 +48,7 @@ namespace GoFish.Menu
             {
                 string? input = Console.ReadLine();
 
-                if (!int.TryParse(input, out int menuChoice) || menuChoice < 1 || menuChoice > 3)
+                if (!int.TryParse(input, out int menuChoice) || menuChoice < 1 || menuChoice > 4)
                 {
                     Console.WriteLine("Please enter a number from the list...");
                     continue;
