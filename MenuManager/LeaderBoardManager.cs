@@ -16,7 +16,8 @@ namespace LeaderBoardManager
 
         private List<string> OrderLines()
         {
-            List<string> orderedLines = new List<string>();
+            var parsedEntries = new List<(string OriginalLine, int Score)>();
+
             foreach (string line in lines)
             {
                 int firstIndex = line.IndexOf("/");
@@ -25,17 +26,19 @@ namespace LeaderBoardManager
                 if (firstIndex != -1 && secondIndex != -1 && secondIndex > firstIndex)
                 {
                     string scoreFromFile = line.Substring(firstIndex + 1, secondIndex - firstIndex - 1);
-                    orderedLines.Add(scoreFromFile);
-                }
-                else
-                {
-                    continue;
+                    if (int.TryParse(scoreFromFile, out int score))
+                    {
+                        parsedEntries.Add((line, score));
+                    }
                 }
             }
 
-            orderedLines.Sort();
+            var sortedEntries = parsedEntries
+        .OrderByDescending(entry => entry.Score)
+        .Select((entry, index) => $"{index + 1}. {entry.OriginalLine}")
+        .ToList();
 
-            return orderedLines;
+            return sortedEntries;
         }
     }
 }
