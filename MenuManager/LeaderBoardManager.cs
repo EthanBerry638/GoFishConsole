@@ -5,17 +5,18 @@ namespace LeaderBoardManager
     public class LeaderBoards
     {
         private static string path = @"C:\Users\ethan\Desktop\Coding Projects\CSharpSelfMiniProjects\GoFishConsole\MenuManager\LeaderBoard.csv";
-        public string[] lines = File.ReadAllLines(path);
 
         public void WriteToLeaderBoard(LeaderBoardEntry leaderBoardEntry)
         {
             DateTime dateTime = DateTime.Now;
             string entry = leaderBoardEntry.Name + "/" + leaderBoardEntry.Score + "/" + dateTime;
-            File.AppendAllText(path, entry);
+            File.AppendAllText(path, entry + Environment.NewLine);
+            WriteToFile();
         }
 
         private List<string> OrderLines()
         {
+            string[] lines = File.ReadAllLines(path);
             var parsedEntries = new List<(string OriginalLine, int Score)>();
 
             foreach (string line in lines)
@@ -39,6 +40,12 @@ namespace LeaderBoardManager
         .ToList();
 
             return sortedEntries;
+        }
+
+        private void WriteToFile()
+        {
+            List<string> sortedEntries = OrderLines();
+            File.WriteAllLines(path, sortedEntries);
         }
     }
 }
