@@ -1,4 +1,5 @@
 using System.Text;
+using GoFish.HelperMethods;
 
 namespace LeaderBoardManager
 {
@@ -8,53 +9,62 @@ namespace LeaderBoardManager
 
         public void WriteToLeaderBoard(LeaderBoardEntry leaderBoardEntry)
         {
+            if (!File.Exists(path) || File.ReadAllLines(path).Length == 0)
+            {
+                File.WriteAllText(path, "Rank,Name,Score,Date" + Environment.NewLine);
+            }
+
             DateTime dateTime = DateTime.Now;
-            string entry = leaderBoardEntry.Name + "," + leaderBoardEntry.Score + "," + dateTime;
+            string entry = $"0,{leaderBoardEntry.Name},{leaderBoardEntry.Score},{dateTime}";
             File.AppendAllText(path, entry + Environment.NewLine);
-            WriteToFile();
         }
 
         private List<string> OrderLines()
+{
+    string[] lines = File.ReadAllLines(path);
+    var parsedEntries = new List<(string OriginalLine, int Score)>();
+
+    for (int i = 1; i < lines.Length; i++)
+    {
+        string[] parts = lines[i].Split(',');
+        if (parts.Length >= 4 && int.TryParse(parts[2], out int score))
         {
-            string[] lines = File.ReadAllLines(path);
-            var parsedEntries = new List<(string OriginalLine, int Score)>();
+            string name = parts[1];
+            string date = parts[3];
+            parsedEntries.Add(($"{name},{score},{date}", score));
+        }
+        else
+        {
+            Console.WriteLine($"Skipped malformed line: {lines[i]}");
+        }
+    }
 
-            foreach (string line in lines)
-            {
-                int firstIndex = line.IndexOf(",");
-                int secondIndex = line.IndexOf(",", firstIndex + 1);
-
-                if (firstIndex != -1 && secondIndex != -1 && secondIndex > firstIndex)
-                {
-                    string scoreFromFile = line.Substring(firstIndex + 1, secondIndex - firstIndex - 1);
-                    if (int.TryParse(scoreFromFile, out int score))
-                    {
-                        parsedEntries.Add((line, score));
-                    }
-                }
-            }
-
-            var sortedEntries = parsedEntries
+    var sortedEntries = parsedEntries
         .OrderByDescending(entry => entry.Score)
-        .Select((entry, index) => $"{index + 1}. {entry.OriginalLine}")
+        .Select((entry, index) => $"{index + 1},{entry.OriginalLine}")
         .ToList();
 
-            return sortedEntries;
-        }
-
-        private void WriteToFile()
+    return sortedEntries;
+}
+        public void WriteToFile()
         {
             List<string> sortedEntries = OrderLines();
             var withHeader = new List<string> { "Rank,Name,Score,Date" };
-
-            withHeader.AddRange(sortedEntries.Select((line, index) =>
-            {
-                // Remove any existing prefix and split the original line
-                string[] parts = line.Split(',');
-                return $"{index + 1},{parts[0]},{parts[1]},{parts[2]}";
-            }));
-
+            withHeader.AddRange(sortedEntries);
             File.WriteAllLines(path, withHeader);
+        }
+
+        public void ReadFile()
+        {
+            string[] lines = File.ReadAllLines(path);
+            foreach (string line in lines)
+            {
+                string cleanedLine = line.Replace(",", " ");
+                Console.WriteLine(cleanedLine);
+                Utils.Pause(300);
+            }
+            Console.WriteLine("\nPress the enter key to return to the main menu");
+            Console.ReadLine();
         }
     }
 }
